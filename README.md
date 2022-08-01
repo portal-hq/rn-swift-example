@@ -6,7 +6,7 @@ based on the article *Integration with Existing Apps* (IWEA) [https://reactnativ
 
 - [Create iOS Swift Project](#create)
 - [Install JavaScript Dependencies](#js)
-- [Usage](#usage)
+- [Install Cocoapods](#pod)
 - [Contributing](../CONTRIBUTING.md)
 
 ## Create iOS Swift Project <a name = "create"></a>
@@ -66,32 +66,106 @@ Scroll up and find something that looks like:
 
 4. Based on the react version in blue, also add it as a dependency.  In this case we run `yarn add react@18.0.0`
 
-### Prerequisites
 
-What things you need to install the software and how to install them.
+## Install Cocapods <a name = "pod"></a>
 
-```
-Give examples
-```
+1. If you do not have a `Podfile` in your project, you can create one by running (like in the IWEA): `pod init`
 
-### Installing
+  You may end up with something like this:
 
-A step by step series of examples that tell you how to get a development env running.
+  ```
+  # Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
 
-Say what the step will be
+target 'TestReactNativeIntegration' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
 
-```
-Give the example
-```
+  # Pods for TestReactNativeIntegration
 
-And repeat
-
-```
-until finished
+end
 ```
 
-End with an example of getting some data out of the system or using it for a little demo.
+If you have one feel free to skip this step.
 
-## Usage <a name = "usage"></a>
+2. Now that we have a `Podfile`, this is where we IWEA is a bit outdated.  If you were to create a brand-new react native project (without an existing iOS project), you'd notice that `ios/Podfile` looks something like this (assuming we named our project `TestThis`)
 
-Add notes about how to use the system.
+***Note we change the relative directory from `../node_modules` to `./node_modules` -- this is because they're in the same directory.***
+
+```
+require_relative './node_modules/react-native/scripts/react_native_pods'
+require_relative './node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, '12.4'
+install! 'cocoapods', :deterministic_uuids => false
+
+production = ENV["PRODUCTION"] == "1"
+
+target 'TestThis' do
+  config = use_native_modules!
+
+  # Flags change depending on the env values.
+  flags = get_default_flags()
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :production => production,
+    :hermes_enabled => flags[:hermes_enabled],
+    :fabric_enabled => flags[:fabric_enabled],
+    :flipper_configuration => FlipperConfiguration.enabled,
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  target 'TestThisTests' do
+    inherit! :complete
+    # Pods for testing
+  end
+
+  post_install do |installer|
+    react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  end
+end
+```
+
+We need to essentially copy that into our existing `Podfile`.  In the case of this project it looks like:
+
+```
+require_relative './node_modules/react-native/scripts/react_native_pods'
+require_relative './node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, '12.4'
+install! 'cocoapods', :deterministic_uuids => false
+
+production = ENV["PRODUCTION"] == "1"
+
+
+target 'TestReactNativeIntegration' do
+  config = use_native_modules!
+
+  # Flags change depending on the env values.
+  flags = get_default_flags()
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :production => production,
+    :hermes_enabled => flags[:hermes_enabled],
+    :fabric_enabled => flags[:fabric_enabled],
+    :flipper_configuration => FlipperConfiguration.enabled,
+    # An absolute path to your application root.
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  post_install do |installer|
+    react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  end
+end
+```
+
+3. Run `pod install`
+
+4. Now open your project's `.xcworkspace` (you will need to close out of the `.xcodeproj` first if it is open for this to work right.)
