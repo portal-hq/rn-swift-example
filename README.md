@@ -1,11 +1,11 @@
 # Test React Native Integration into Existing iOS Project
 
-based on [https://reactnative.dev/docs/integration-with-existing-apps](https://reactnative.dev/docs/integration-with-existing-apps)
+based on the article *Integration with Existing Apps* (IWEA) [https://reactnative.dev/docs/integration-with-existing-apps](https://reactnative.dev/docs/integration-with-existing-apps)
 
 ## Table of Contents
 
 - [Create iOS Swift Project](#create)
-- [Getting Started](#getting_started)
+- [Install JavaScript Dependencies](#js)
 - [Usage](#usage)
 - [Contributing](../CONTRIBUTING.md)
 
@@ -23,9 +23,48 @@ If you already have an app set up (most likely) you can skip this step.
 
 
 
-## Getting Started <a name = "getting_started"></a>
+## Install JavaScript Dependencies <a name = "js"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+We'll start loosely following IWEA from above.  Note that we do not follow step 1 in prerequisites -- no need to move code to `ios` folder.
+
+If you need to install `yarn` or `pod` for instruction below, please refer to IWEA guide.
+
+1. In the root of your project set up `package.json` by running `yarn init`.  Enter any info that pertains to your project, and you'll send up with something like this:
+
+```
+{
+  "name": "TestReactNativeIntegration",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:portal-hq/RN-Swift-Example.git",
+  "author": "Elijah Windsor <ewindsor@gmail.com>",
+  "license": "MIT"
+}
+```
+
+2. Create a `start` script in package.json:
+
+```
+{
+  "name": "TestReactNativeIntegration",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:portal-hq/RN-Swift-Example.git",
+  "author": "Elijah Windsor <ewindsor@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn react-native start"
+  }
+}
+
+```
+
+3. Add `react-native` dependency, and note which version of `react` it wants you to install.  Do this by running `yarn add react-native`
+
+Scroll up and find something that looks like:
+![showing react version required](https://i.ibb.co/vw4rXhL/Screen-Shot-2022-08-01-at-11-09-04-AM.png)
+
+4. Based on the react version in blue, also add it as a dependency.  In this case we run `yarn add react@18.0.0`
 
 ### Prerequisites
 
