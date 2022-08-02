@@ -342,8 +342,8 @@ Paste the following code in:
 ```
 set -e
 
-WITH_ENVIRONMENT="../node_modules/react-native/scripts/xcode/with-environment.sh"
-REACT_NATIVE_XCODE="../node_modules/react-native/scripts/react-native-xcode.sh"
+WITH_ENVIRONMENT="./node_modules/react-native/scripts/xcode/with-environment.sh"
+REACT_NATIVE_XCODE="./node_modules/react-native/scripts/react-native-xcode.sh"
 
 /bin/sh -c "$WITH_ENVIRONMENT $REACT_NATIVE_XCODE"
 ```
@@ -359,3 +359,4 @@ and
 
 You'll end up with something like:
 
+![Results](https://i.ibb.co/5xxCPxx/Screen-Shot-2022-08-02-at-10-50-41-AM.png" alt="Screen-Shot-2022-08-02-at-10-50-41-AM)
