@@ -7,7 +7,7 @@ based on the article *Integration with Existing Apps* (IWEA) [https://reactnativ
 - [Create iOS Swift Project](#create)
 - [Install JavaScript Dependencies](#js)
 - [Install Cocoapods](#pod)
-- [JavaScript Code Integration](#jsintegrationn)
+- [JavaScript Code Integration](#jsintegration)
 - [Swift Integration](#swift)
 - [Add Build Phase for Bundling JS](#buildphase)
 - [Update URL for JS source](#jsurl)
