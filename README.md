@@ -10,6 +10,7 @@ based on the article *Integration with Existing Apps* (IWEA) [https://reactnativ
 - [JavaScript Code Integration](#jsintegrationn)
 - [Swift Integration](#swift)
 - [Add Build Phase for Bundling JS](#buildphase)
+- [Update URL for JS source](#jsurl)
 
 ## Create iOS Swift Project <a name = "create"></a>
 
@@ -317,8 +318,7 @@ Now if you run your project you should see something like:
 
 ## Add Build Phase for Bundling JS <a name = "buildphase" />
 
-So far we've configured our React Native integration for debug mode only.  When we ship to the AppStore we need it to bundle the JS and include it in the IPA rather than loading it from `localhost`.
-
+So far we've configured our React Native integration for debug mode only.  When we ship to the AppStore we need it to bundle the JS and include it in the IPA.
 To do so go into your project and click on it, then go to Build Phases:
 
 ![Build Phases](https://i.ibb.co/fv6Gnrh/Screen-Shot-2022-08-02-at-9-05-02-AM.png)
@@ -340,12 +340,12 @@ Drag it so it is right before `[CP] Embed Pods Frameworks`
 Paste the following code in:
 
 ```
-set -e
+  set -e
 
-WITH_ENVIRONMENT="./node_modules/react-native/scripts/xcode/with-environment.sh"
-REACT_NATIVE_XCODE="./node_modules/react-native/scripts/react-native-xcode.sh"
+  WITH_ENVIRONMENT="./node_modules/react-native/scripts/xcode/with-environment.sh"
+  REACT_NATIVE_XCODE="./node_modules/react-native/scripts/react-native-xcode.sh"
 
-/bin/sh -c "$WITH_ENVIRONMENT $REACT_NATIVE_XCODE"
+  /bin/sh -c "$WITH_ENVIRONMENT $REACT_NATIVE_XCODE"
 ```
 
 
@@ -359,4 +359,38 @@ and
 
 You'll end up with something like:
 
-![Results](https://i.ibb.co/5xxCPxx/Screen-Shot-2022-08-02-at-10-50-41-AM.png" alt="Screen-Shot-2022-08-02-at-10-50-41-AM)
+![Results](https://i.ibb.co/5xxCPxx/Screen-Shot-2022-08-02-at-10-50-41-AM.png)
+
+
+
+## Update URL for JS source <a name="jsurl" />
+
+The final step in ensuring your app will run in both `Develop` and `Release`mode through changing the `URL` the JS is loaded from.
+
+To do this, modify your `ContentView.swift` like so:
+
+```
+  import SwiftUI
+  import UIKit
+  import React
+
+  struct RctView: UIViewRepresentable {
+      func makeUIView(context: Context) -> RCTRootView {
+          var sourceUrl: URL;
+          
+          #if DEBUG
+              sourceUrl = URL(string:"http://localhost:8081/index.bundle?platform=ios")!
+          #else
+              sourceUrl = Bundle.main.url(forResource: "main", withExtension: "jsbundle")!;
+          #endif
+          
+          return RCTRootView(bundleURL: sourceUrl, moduleName: "HelloTest", initialProperties: nil, launchOptions: nil)
+      }
+      
+      func updateUIView(_ view: RCTRootView, context: Context) {
+          
+      }
+  }
+```
+
+Now your app will know where to load the JS from depending on if it's in `Debug` (localhost) or `Release` (app bundle)!
