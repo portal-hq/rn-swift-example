@@ -26,15 +26,15 @@ We'll start loosely following IWEA from above.  Note that we do not follow step 
 
 If you need to install `yarn` or `pod` for instruction below, please refer to IWEA guide.
 
-1. In the root of your project set up `package.json` by running `yarn init`.  Enter any info that pertains to your project, and you'll send up with something like this:
+1. In the root of your project set up `package.json` by running `yarn init`.  Enter any info that pertains to your project, and you'll end up with something like this:
 
 ```
   {
-    "name": "TestReactNativeIntegration",
+    "name": "PROJECT_TITLE",
     "version": "1.0.0",
     "main": "index.js",
-    "repository": "git@github.com:portal-hq/RN-Swift-Example.git",
-    "author": "Elijah Windsor <ewindsor@gmail.com>",
+    "repository": "git@github.com:REPO_NAME.git",
+    "author": "AUTHOR NAME <AUTHOR@EMAIL.com>",
     "license": "MIT"
   }
 ```
@@ -43,12 +43,12 @@ If you need to install `yarn` or `pod` for instruction below, please refer to IW
 
 ```
   {
-    "name": "TestReactNativeIntegration",
+    "name": "PROJECT_TITLE",
     "version": "1.0.0",
     "main": "index.js",
-    "repository": "git@github.com:portal-hq/RN-Swift-Example.git",
-    "author": "Elijah Windsor <ewindsor@gmail.com>",
-    "license": "MIT",
+    "repository": "git@github.com:REPO_NAME.git",
+    "author": "AUTHOR NAME <AUTHOR@EMAIL.com>",
+    "license": "MIT"
     "scripts": {
       "start": "yarn react-native start"
     }
@@ -165,9 +165,9 @@ We need to essentially copy that into our existing `Podfile`.  In the case of th
 
 3. Run `pod install`
 
-4. Now open your project's `.xcworkspace` (you will need to close out of the `.xcodeproj` first if it is open for this to work right.)
+4. Now open your project's `.xcworkspace` (you will need to close out of the `.xcodeproj` first if it is open.)
 
-5. Do another buid / run in Simulator to make sure it works
+5. Do another build / run in the Simulator to make sure it works
 
 
 ## JavaScript Code Integration <a name = "jsintegration"></a>
