@@ -11,7 +11,15 @@ import React
 
 struct RctView: UIViewRepresentable {
     func makeUIView(context: Context) -> RCTRootView {
-        RCTRootView(bundleURL: URL(string: "http://localhost:8081/index.bundle?platform=ios")!, moduleName: "HelloTest", initialProperties: nil, launchOptions: nil)
+        var sourceUrl: URL;
+        
+        #if DEBUG
+            sourceUrl = URL(string:"http://localhost:8081/index.bundle?platform=ios")!
+        #else
+            sourceUrl = Bundle.main.url(forResource: "main", withExtension: "jsbundle")!;
+        #endif
+        
+        return RCTRootView(bundleURL: sourceUrl, moduleName: "HelloTest", initialProperties: nil, launchOptions: nil)
     }
     
     func updateUIView(_ view: RCTRootView, context: Context) {
