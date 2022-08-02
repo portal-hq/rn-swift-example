@@ -9,7 +9,7 @@ based on the article *Integration with Existing Apps* (IWEA) [https://reactnativ
 - [Install Cocoapods](#pod)
 - [JavaScript Code Integration](#jsintegrationn)
 - [Swift Integration](#swift)
-- [Configure Debug / Release](#configure)
+- [Add Build Phase for Bundling JS](#buildphase)
 
 ## Create iOS Swift Project <a name = "create"></a>
 
@@ -315,7 +315,7 @@ Now if you run your project you should see something like:
 ![Swift and React Native](https://i.ibb.co/MDCbNyM/Screen-Shot-2022-08-01-at-3-52-57-PM.png)
 
 
-## Configure Debug / Release
+## Add Build Phase for Bundling JS <a name = "buildphase" />
 
 So far we've configured our React Native integration for debug mode only.  When we ship to the AppStore we need it to bundle the JS and include it in the IPA rather than loading it from `localhost`.
 
