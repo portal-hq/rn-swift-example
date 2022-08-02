@@ -9,6 +9,7 @@ based on the article *Integration with Existing Apps* (IWEA) [https://reactnativ
 - [Install Cocoapods](#pod)
 - [JavaScript Code Integration](#jsintegrationn)
 - [Swift Integration](#swift)
+- [Configure Debug / Release](#configure)
 
 ## Create iOS Swift Project <a name = "create"></a>
 
@@ -312,3 +313,49 @@ One thing to pay special attention to here is the `moduleName`.  In this case, i
 Now if you run your project you should see something like:
 
 ![Swift and React Native](https://i.ibb.co/MDCbNyM/Screen-Shot-2022-08-01-at-3-52-57-PM.png)
+
+
+## Configure Debug / Release
+
+So far we've configured our React Native integration for debug mode only.  When we ship to the AppStore we need it to bundle the JS and include it in the IPA rather than loading it from `localhost`.
+
+To do so go into your project and click on it, then go to Build Phases:
+
+![Build Phases](https://i.ibb.co/fv6Gnrh/Screen-Shot-2022-08-02-at-9-05-02-AM.png)
+
+
+
+Then click + and add `New Run Script Phase`
+
+![New Run Script Phase](https://i.ibb.co/MBXD2K4/Screen-Shot-2022-08-02-at-9-06-19-AM.png)
+
+
+Name it `Bundle React Native code and images`
+
+
+Drag it so it is right before `[CP] Embed Pods Frameworks`
+
+![Drag Up](https://i.ibb.co/MR4r29G/Screen-Shot-2022-08-02-at-9-09-40-AM.png)
+
+Paste the following code in:
+
+```
+set -e
+
+WITH_ENVIRONMENT="../node_modules/react-native/scripts/xcode/with-environment.sh"
+REACT_NATIVE_XCODE="../node_modules/react-native/scripts/react-native-xcode.sh"
+
+/bin/sh -c "$WITH_ENVIRONMENT $REACT_NATIVE_XCODE"
+```
+
+
+Under `Input Files` add:
+
+`$(SRCROOT)/.xcode.env.local`
+
+and
+
+`$(SRCROOT)/.xcode.env`
+
+You'll end up with something like:
+
