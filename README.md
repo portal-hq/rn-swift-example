@@ -50,7 +50,7 @@ If you need to install `yarn` or `pod` for instruction below, please refer to IW
     "main": "index.js",
     "repository": "git@github.com:REPO_NAME.git",
     "author": "AUTHOR NAME <AUTHOR@EMAIL.com>",
-    "license": "MIT"
+    "license": "MIT",
     "scripts": {
       "start": "yarn react-native start"
     }
