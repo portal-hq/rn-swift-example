@@ -6,7 +6,7 @@ based on the article *Integration with Existing Apps* (IWEA) [https://reactnativ
 
 - [Create iOS Swift Project](#create)
 - [Install JavaScript Dependencies](#js)
-- [Install Cocoapods](#pod)
+- [Set Up Podfile](#pod)
 - [JavaScript Code Integration](#jsintegration)
 - [Swift Integration](#swift)
 - [Add Build Phase for Bundling JS](#buildphase)
@@ -66,9 +66,10 @@ Scroll up and find something that looks like:
 4. Based on the react version in blue, also add it as a dependency.  In this case we run `yarn add react@18.0.0`
 
 
-## Install Cocapods <a name = "pod"></a>
+## Set Up Podfile <a name = "pod"></a>
 
-1. If you do not have a `Podfile` in your project, you can create one by running (like in the IWEA): `pod init`
+1. Be sure you have installed [cocoapods](https://reactnative.dev/docs/integration-with-existing-apps#3-install-cocoapods)
+2. If you do not have a `Podfile` in your project, you can create one by running (like in the IWEA): `pod init`
 
   You may end up with something like this:
 
