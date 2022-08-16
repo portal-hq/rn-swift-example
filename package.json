@@ -1,7 +1,7 @@
 {
   "name": "TestReactNativeIntegration",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "Portal/index.js",
   "repository": "git@github.com:portal-hq/RN-Swift-Example.git",
   "author": "Elijah Windsor <ewindsor@gmail.com>",
   "license": "MIT",

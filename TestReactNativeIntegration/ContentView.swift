@@ -14,7 +14,7 @@ struct RctView: UIViewRepresentable {
         var sourceUrl: URL;
         
         #if DEBUG
-            sourceUrl = URL(string:"http://localhost:8081/index.bundle?platform=ios")!
+            sourceUrl = URL(string:"http://localhost:8081/Portal/index.bundle?platform=ios")!
         #else
             sourceUrl = Bundle.main.url(forResource: "main", withExtension: "jsbundle")!;
         #endif
